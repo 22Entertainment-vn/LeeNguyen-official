@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lee Nguyen — The Sound Architect</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Plus Jakarta Sans: Font siêu mượt, đường cong uyển chuyển nghệ thuật -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #05070f; /* Đen vũ trụ bãi biển ban đêm */
+            --bg-card: rgba(15, 23, 42, 0.4);
+            --border-color: rgba(255, 255, 255, 0.05);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8; /* Xanh ngọc starlight */
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            line-height: 1.7;
+            position: relative;
+        }
+
+        /* EFFECT: Bầu trời sao long lanh lóng lánh */
+        .starry-sky {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(1px 1px at 25px 40px, #fff, transparent),
+                radial-gradient(1.5px 1.5px at 75px 120px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(1px 1px at 150px 60px, #fff, transparent),
+                radial-gradient(2px 2px at 220px 200px, rgba(56, 189, 248, 0.7), transparent),
+                radial-gradient(1px 1px at 280px 150px, #fff, transparent);
+            background-size: 300px 300px;
+            animation: twinkle 6s infinite linear;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Ánh sáng dạ quang đại dương loang mờ */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            pointer-events: none;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        body::before {
+            width: 500px; height: 500px;
+            background: var(--accent);
+            top: -100px; right: -50px;
+        }
+
+        body::after {
+            width: 600px; height: 600px;
+            background: #0ea5e9;
+            bottom: 15%; left: -150px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 100px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .brand {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+        }
+        .brand span { color: var(--accent); }
+
+        .status-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 6px; height: 6px;
+            background-color: #34d399;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #34d399;
+        }
+
+        .hero { margin-bottom: 120px; }
+
+        .hero-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 5.5rem);
+            line-height: 1.1;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-title .filled {
+            color: var(--text-primary);
+            -webkit-text-stroke: none;
+            text-shadow: 0 0 30px rgba(255,255,255,0.05);
+        }
+
+        .hero-identity {
+            font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.15rem, 3vw, 1.4rem);
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 700px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1.2fr 2fr;
+                gap: 60px;
+            }
+        }
+
+        .meta-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .profile-wrapper {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+            background: #0f172a;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .profile-img {
+            width: 100%; height: auto; display: block; object-fit: cover;
+            filter: grayscale(20%) brightness(0.9);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .profile-wrapper:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 30px 50px rgba(56, 189, 248, 0.05);
+        }
+
+        .profile-wrapper:hover .profile-img {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.02);
+        }
+
+        .meta-item {
+            border-left: 2px solid rgba(255, 255, 255, 0.08);
+            padding-left: 20px;
+            transition: all 0.3s;
+        }
+
+        .meta-item:hover {
+            border-left-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .meta-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .meta-value {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .bio-content {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(90deg, var(--border-color), transparent);
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        p strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .highlight-card:hover {
+            border-color: rgba(56, 189, 248, 0.2);
+            background: rgba(15, 23, 42, 0.6);
+        }
+
+        .highlight-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--accent);
+        }
+
+        .quote {
+            font-size: 1.25rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--text-primary);
+            line-height: 1.6;
+            margin: 30px 0;
+            padding: 0 20px;
+            border-left: 2px solid var(--accent);
+        }
+
+        footer {
+            margin-top: 100px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        @media (min-width: 768px) {
+            footer {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+    <!-- Khởi tạo bầu trời sao ẩn hiện -->
+    <div class="starry-sky"></div>
+
+    <div class="container">
+        <header>
+            <div class="brand">LN <span>•</span> 22</div>
+            <div class="status-tag">
+                <div class="status-dot"></div>
+                Mui Ne — Active
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <span class="hero-label">Sonic Architect</span>
+                <h1 class="hero-title">Lee <span class="filled">Nguyen</span></h1>
+                <div class="hero-identity">DJ — Selector — Mentor</div>
+                <p class="hero-subtitle">Hơn 20 năm định hình dòng chảy âm nhạc bờ biển. Co-Founder 22 Entertainment Vietnam & DJ President Nirvana Beach Club.</p>
+            </section>
+
+            <div class="grid-layout">
+                <!-- Sidebar -->
+                <aside class="meta-sidebar">
+                    <div class="profile-wrapper">
+                        <img src="1000000678.jpg" alt="Lee Nguyen" class="profile-img">
+                    </div>
+
+                    <div class="meta-item">
+                        <div class="meta-label">Origin</div>
+                        <div class="meta-value">Hải Phòng, VN</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Experience</div>
+                        <div class="meta-value">20+ Years / Pioneer</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Current Residence</div>
+                        <div class="meta-value">Mũi Né, Phan Thiết</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Organizations</div>
+                        <div class="meta-value">22 Entertainment<br>Nirvana Beach Club</div>
+                    </div>
+                </aside>
+
+                <!-- Main Content giữ nguyên 100% -->
+                <div class="bio-content">
+                    <div class="section-block">
+                        <h2 class="section-title">The Journey</h2>
+                        <p>Khởi đầu từ mảnh đất Cảng Hải Phòng kiên cường và đầy cá tính, <strong>DJ/Producer Lee Nguyen</strong> thuộc thế hệ nghệ sĩ đời đầu đặt nền móng cho nền âm nhạc điện tử nước nhà. Hai thập kỷ thực chiến đỉnh cao biến anh thành một chứng nhân lịch sử, người trực tiếp kiến tạo và dẫn dắt văn hóa câu lạc bộ (clubbing) tại Việt Nam.</p>
+                    </div>
+
+                    <div class="section-block">
+                        <h2 class="section-title">The Craft</h2>
+                        <p>Dịch chuyển địa bàn về thủ phủ resort Mũi Né, Lee Nguyen nhanh chóng khẳng định vị thế độc tôn, trở thành cái tên bảo chứng cho những đêm nhạc bãi biển thượng lưu. Trước năm 2020, anh là linh hồn của những chiếc bar Tây và club bờ biển biểu tượng nhất khu vực.</p>
+                        
+                        <div class="highlight-card">
+                            <p style="margin:0; color: var(--text-primary); font-weight:500;">
+                                Hiện tại, trên cương vị <strong>DJ President tại Nirvana Beach Club</strong>, Lee Nguyen liên tục tái định nghĩa trải nghiệm âm thanh bờ biển. Không rập khuôn thể loại, anh biến hóa set nhạc dựa trên sự tương tác tuyệt đối với cảnh sắc, hoàng hôn và năng lượng đám đông trước mắt.
+                            </p>
+                        </div>
+
+                        <div class="quote">
+                            "Âm nhạc không chỉ để nghe, âm nhạc là chất xúc tác định hình kiến trúc cảm xúc."
+                        </div>
+                    </div>
+
+                    <div class="section-block">
+                        <h2 class="section-title">The Legacy</h2>
+                        <p>Không dừng lại ở vai trò một "thợ thủ công âm thanh", anh là một <strong>Mentor</strong> thực thụ, người nâng đỡ thế hệ nghệ sĩ trẻ tại Mũi Né. Với tư cách là <strong>Co-Founder của 22 Entertainment Vietnam</strong>, Lee Nguyen đang hiện thực hóa sứ mệnh gắn kết cộng đồng nghệ sĩ nội địa với các tên tuổi quốc tế đẳng cấp, biến Mũi Né thành một thánh địa âm nhạc toàn cầu.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div>© 2026 Lee Nguyen. Powered by 22 Entertainment.</div>
+            <div>
+                <a href="#" class="footer-link">Instagram</a> // 
+                <a href="#" class="footer-link">Soundcloud</a> // 
+                <a href="#" class="footer-link">Resident Advisor</a>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
