@@ -201,14 +201,17 @@
             transition: all 0.5s ease;
         }
 
+        /* TUNING: Xử lý màu ảnh ban ngày ép vào giao diện ban đêm */
         .profile-img {
             width: 100%; height: auto; display: block; object-fit: cover;
-            filter: grayscale(20%) brightness(0.85);
-            transition: all 0.6s ease;
+            opacity: 0.8;
+            filter: grayscale(15%) brightness(0.75) contrast(1.1);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .profile-wrapper:hover .profile-img {
-            filter: grayscale(0%) brightness(1);
+            opacity: 1;
+            filter: grayscale(0%) brightness(1) contrast(1);
             transform: scale(1.02);
         }
 
@@ -300,7 +303,6 @@
             border-left: 2px solid var(--accent-blue);
         }
 
-        /* NEW SECTION: Khung Kết Nối & Booking Facebook độc bản */
         .booking-box {
             background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(15, 23, 42, 0.6));
             border: 1px solid rgba(14, 165, 233, 0.2);
@@ -380,7 +382,8 @@
                 <!-- Sidebar -->
                 <aside class="meta-sidebar">
                     <div class="profile-wrapper">
-                        <img src="1000000678.jpg" alt="Lee Nguyen" class="profile-img">
+                        <!-- UPDATE: Đã đổi sang file ảnh mới 1000000678_2.jpg -->
+                        <img src="1000000678_2.jpg" alt="Lee Nguyen" class="profile-img">
                     </div>
 
                     <div class="meta-item">
@@ -401,7 +404,7 @@
                     </div>
                 </aside>
 
-                <!-- Main Content giữ nguyên 100% -->
+                <!-- Main Content giữ nguyên nội dung -->
                 <div class="bio-content">
                     <div class="section-block">
                         <h2 class="section-title">The Journey</h2>
@@ -428,7 +431,6 @@
                         <p>Không dừng lại ở vai trò một "thợ thủ công âm thanh", anh là một <strong>Mentor</strong> thực thụ, người nâng đỡ thế hệ nghệ sĩ trẻ tại Mũi Né. Với tư cách là <strong>Co-Founder của 22 Entertainment Vietnam</strong>, Lee Nguyen đang hiện thực hóa sứ mệnh gắn kết cộng đồng nghệ sĩ nội địa với các tên tuổi quốc tế đẳng cấp, biến Mũi Né thành một thánh địa âm nhạc toàn cầu.</p>
                     </div>
 
-                    <!-- UPDATE: Mục Kết Nối & Booking độc quyền qua Facebook -->
                     <div class="booking-box">
                         <h2 class="section-title" style="justify-content: center; margin-bottom: 15px;">Connect & Booking</h2>
                         <p>Liên hệ trực tiếp công việc và cập nhật lịch biểu diễn mới nhất của DJ Lee Nguyen qua cổng truyền thông chính thức.</p>
